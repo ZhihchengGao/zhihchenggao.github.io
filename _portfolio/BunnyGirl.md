@@ -1,8 +1,8 @@
 ---
 layout: post
 title: BunnyGirl
-feature-img: "/assets/img/portfolio/bunnygirl logo.png"
-img: "/assets/img/portfolio/bunnygirl logo.png"
+feature-img: "assets/img/portfolio/bunnygirl logo.png"
+img: "assets/img/portfolio/bunnygirl logo.png"
 date: 17 November 2021
 ---
 
