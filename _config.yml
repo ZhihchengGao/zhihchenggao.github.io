@@ -4,7 +4,7 @@ url: "https://zhihchenggao.github.io"
 
 # THEME-SPECIFIC CONFIGURATION
 title: Website of Richard Gao                                   # site's title
-description: "Official"      # used by search engines
+description: "Personal Website"      # used by search engines
 avatar: assets/img/richardava.JPG                         # Empty for no avatar in navbar
 favicon: assets/icon new.png                           # Icon displayed in the tab
 
