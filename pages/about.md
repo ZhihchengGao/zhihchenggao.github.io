@@ -6,9 +6,20 @@ feature-img: "assets/img/pexels/travel.jpeg"
 tags: [Page]
 ---
 
-Type on Strap is based on Type Theme, a free and open-source theme for [Jekyll](http://jekyllrb.com/), licensed under the MIT License.
+**Richard Gao. Borned November 1, 2006. Nice to meet you.**
 
-Head over to the [theme's documentation](https://github.io/sylhare/Type-on-Strap) for much more information about Type on Strap or to install this theme on your own Jekyll site.
+Big credit to **Github** and **JekyII** which allowed the developers to build the website.
 
-This file is an example of a page in Jekyll, that automatically shows up in the header navigation, you can delete or modify this file freely.
- 
+<br>
+
+### **Social Media**
+
+<br>
+
+**Wechat**: zhicheng_gao
+
+**Bilibili**: BUNNYGIRL-渔叉德 (https://space.bilibili.com/492665691)
+
+**E-mail**: (Only for official messages) jingbo.gao@student.keystoneacademy.cn
+
+**Phone**: (Only for EXTREME urgent) +86 13522451353
