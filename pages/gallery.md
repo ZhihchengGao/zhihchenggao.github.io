@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Gallery
-subtitle: From the pexels folder
+subtitle: Moments of Life
 permalink: /gallery/
 gallery_path: "assets/img/pexels"
 tags: [Page]
