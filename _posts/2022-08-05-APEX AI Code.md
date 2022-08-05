@@ -53,7 +53,7 @@ sns.regplot(x = x,y = y)
 ## **Logistic Regression:商品评价**
 Date: Aug.2, Python
 
-```Python
+```python
 import os
 import jieba
 import numpy as np
