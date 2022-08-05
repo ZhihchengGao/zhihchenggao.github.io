@@ -117,3 +117,24 @@ else:
     print('\n \n \n回应：\n谢谢你')
 
 ```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<script src="https://giscus.app/client.js"
+        data-repo="ZhihchengGao/zhihchenggao.github.io"
+        data-repo-id="R_kgDOHw_0jQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOHw_0jc4CQnM5"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
