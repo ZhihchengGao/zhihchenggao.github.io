@@ -10,6 +10,7 @@ tags: [Page]
 
 Big credit to **Github** and **JekyII** which allowed the developers to build the website.
 
+*Website Version: 0.2.1 (beta)*
 <br>
 
 ### **Social Media**
@@ -23,3 +24,4 @@ Big credit to **Github** and **JekyII** which allowed the developers to build th
 **E-mail**: (Only for official messages) jingbo.gao@student.keystoneacademy.cn
 
 **Phone**: (Only for EXTREME urgent) +86 13522451353
+
