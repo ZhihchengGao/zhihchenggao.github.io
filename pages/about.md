@@ -10,7 +10,7 @@ tags: [Page]
 
 Big credit to **Github** and **JekyII** which allowed the developers to build the website.
 
-*Website Version: 0.1.31 (beta)*
+*Website Version: 0.1.32 (beta)*
 <br>
 
 ### **Social Media**
