@@ -3,7 +3,7 @@ layout: post
 title: >
     APEX AI Code 
 author: Richard
-tags: [Page]
+tags: [AI, Python]
 ---
 
 # APEX AI CODE
