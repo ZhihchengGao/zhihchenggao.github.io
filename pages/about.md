@@ -5,8 +5,8 @@ permalink: /about/
 feature-img: "assets/img/pexels/travel.jpeg"
 tags: [Page]
 ---
-
-**Richard Gao. Borned November 1, 2006. Nice to meet you.**
+### **Welcome!**
+**Richard Gao | 高靖博**
 
 Big credit to **Github** and **JekyII** which allowed the developers to build the website.
 
@@ -14,14 +14,8 @@ Big credit to **Github** and **JekyII** which allowed the developers to build th
 <br>
 
 ### **Social Media**
-
-<br>
-
 **Wechat**: zhicheng_gao
-
-**Bilibili**: BUNNYGIRL-渔叉德 (https://space.bilibili.com/492665691)
-
-**E-mail**: (Only for official messages) jingbo.gao@student.keystoneacademy.cn
-
-**Phone**: (Only for EXTREME urgent) +86 13522451353
-
+**Bilibili**: [SOMNINOTE-渔叉德](https://space.bilibili.com/492665691)
+**E-mail (School)**: jingbo.gao@student.keystoneacademy.cn
+**E-mail (Personal)**: richardgao2006@gmail.com
+**Wikipedia**: [User:Zhihcheng](https://en.wikipedia.org/wiki/User:Zhihcheng)
