@@ -4,7 +4,7 @@ cv:
   email: richardgao@uchicago.edu
   location: Chicago, IL / Beijing, CN
   image: headshot.png
-  summary: Computer science undergraduate at the University of Chicago. Research assistant at Virginia Image and Video Analysis Lab.
+  # summary: Computer science undergraduate at the University of Chicago. Research assistant at Virginia Image and Video Analysis Lab.
 
   social_networks:
     - network: LinkedIn
@@ -22,12 +22,12 @@ cv:
       - institution: University of Chicago
         location: Chicago, IL
         url: https://www.uchicago.edu
-        area: Physics
+        area: Computer Science, Mathematics
         studyType: Bachelor of Science
         start_date: 2026
         end_date: 2029
-        score: ""
-        courses: "Theory of Relativity"
+        # score: ""
+        # courses: "Theory of Relativity"
         # highlights:
         #   - Transfer student from UVA. Rising second-year.
 
@@ -36,6 +36,7 @@ cv:
         url: https://www.virginia.edu
         area: Computer Science, Mathematics
         studyType: Attended
+        score: "4.0"
         start_date: 2025
         end_date: 2026
         # highlights:
