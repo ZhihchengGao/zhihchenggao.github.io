@@ -61,7 +61,15 @@ if (/gem 'al_math',\s*:git =>/.test(gemfile)) {
   failures.push("`Gemfile` must not use git-branch pin for `al_math`; use released gem version.");
 }
 
-for (const forbiddenPath of ["_includes", "_layouts", "_sass", "_scripts", "assets/tailwind", "tailwind.config.js", "assets/webfonts"]) {
+// NOTE (site-local change): `_includes`, `_layouts`, and `_sass` were removed from
+// this list. They are forbidden in the upstream alshedivat/al-folio starter, where
+// all runtime belongs to gems — but this is a personal site created from that
+// template, and local overrides of gem-owned files are explicitly supported here:
+// see docs/ARCHITECTURE.md "Local overrides: your site vs. this repo", which notes
+// that this very check misfires on user forks. Those directories hold the theme
+// palette, fonts, CV templates, and about layout. The remaining entries still guard
+// against re-introducing a starter-local Tailwind/CSS build pipeline.
+for (const forbiddenPath of ["_scripts", "assets/tailwind", "tailwind.config.js", "assets/webfonts"]) {
   if (exists(forbiddenPath)) {
     failures.push(`Starter must not own core component path \`${forbiddenPath}\`; move ownership to the corresponding gem.`);
   }
