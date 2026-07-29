@@ -13,10 +13,9 @@ description: > # the ">" symbol means to ignore newlines until "footer_text:"
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
-  Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
 keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: logo.jpg # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
+icon: uchicago-favicon.png # square-padded crest; the raw uchicago.png is 2176x2626 and browsers squish it
 
 url: https://zhihchenggao.github.io # the base hostname & protocol for your site
 baseurl: # the subpath of your site, e.g. /blog/. Leave blank for root
@@ -84,7 +83,7 @@ al_folio:
 # -----------------------------------------------------------------------------
 
 navbar_fixed: true
-footer_fixed: true
+footer_fixed: false
 search_enabled: true
 socials_in_search: true
 posts_in_search: true
@@ -160,16 +159,12 @@ disqus_shortname: al-folio # put your disqus shortname
 # you can display them in your blog by adding a link to the RSS feed.
 # Optional: Set default categories and tags for posts from each source.
 external_sources:
-  - name: medium.com
-    rss_url: https://medium.com/@al-folio/feed
-    categories: [external-posts]
-    tags: [medium]
-  - name: Google Blog
-    posts:
-      - url: https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/
-        published_date: 2024-05-14
-    categories: [external-posts]
-    tags: [google]
+  # Template demo entries removed: they pulled al-folio's own Medium feed and a
+  # Google blog post into this site's blog and search index. Add your own here.
+  # - name: medium.com
+  #   rss_url: https://medium.com/@your-handle/feed
+  #   categories: [external-posts]
+  #   tags: [medium]
 
 # -----------------------------------------------------------------------------
 # Newsletter
@@ -230,7 +225,6 @@ exclude:
   - lighthouse_results/
   - package.json
   - package-lock.json
-  - _pages/about_einstein.md
   - purgecss.config.js
   - README.md
   - readme_preview/
@@ -529,7 +523,7 @@ third_party_libraries:
     version: "5.5.0"
   google_fonts:
     url:
-      fonts: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&display=swap"
+      fonts: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400..700&family=Source+Sans+3:wght@200..900&family=Source+Serif+4:opsz,wght@8..60,200..900&display=swap"
   highlightjs:
     integrity:
       css:

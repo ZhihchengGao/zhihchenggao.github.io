@@ -2,16 +2,17 @@
 layout: about
 title: about
 permalink: /
-subtitle: Computer Science Undergraduate @ University of Chicago | Research Assistant @ VIVA Lab
+subtitle: <span class="contact-email"><b>email:</b> richardgao (at) uchicago (dot) edu</span>
 
 profile:
   align: right
   image: headshot.jpg
   image_circular: true # crops the image to make it circular
-  # more_info: >
-  #   <p>555 your office number</p>
-  #   <p>123 your address street</p>
-  #   <p>Your City, State 12345</p>
+  more_info: >
+    <p class="position-primary">Computer Science Undergraduate</p>
+    <p class="position-affiliation">University of Chicago</p>
+    <p class="position-primary">Research Assistant</p>
+    <p class="position-affiliation">Virginia Image and Video Analysis Lab</p>
 
 selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page

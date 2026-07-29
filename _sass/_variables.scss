@@ -1,0 +1,69 @@
+/*******************************************************************************
+ * Variables used throughout the theme.
+ * To adjust anything, simply edit the variables below and rebuild the theme.
+ ******************************************************************************/
+
+@use "sass:color";
+
+// University of Chicago brand palette.
+// Maroon is the accent; the greystones feed the neutral ramp below.
+$uchicago-maroon: #800000 !default; // Pantone 202C
+$uchicago-greystone-light: #d9d9d9 !default; // Pantone Cool Gray 3C
+$uchicago-greystone: #a6a6a6 !default; // Pantone Warm Gray 7C
+$uchicago-greystone-dark: #737373 !default; // Pantone Warm Gray 11C
+
+// Maroon is too dark to read on the dark-mode background (1.9:1), so dark mode
+// uses a lightened, desaturated tint of it: ~#d96868, 5.0:1 on $grey-color-dark.
+$uchicago-maroon-light: #d96868 !default;
+
+// Colors
+$red-color: #ff3636 !default;
+$red-color-dark: $uchicago-maroon !default;
+$orange-color: #f29105 !default;
+$blue-color: #0076df !default;
+$blue-color-dark: #00369f !default;
+// Dark-mode accent. Named for upstream compatibility; only _themes.scss reads it.
+$cyan-color: $uchicago-maroon-light !default;
+$light-cyan-color: color.adjust($cyan-color, $lightness: 25%);
+$green-color: #00ab37 !default;
+$green-color-lime: #b7d12a !default;
+$green-color-dark: #009f06 !default;
+$green-color-light: #ddffdd !default;
+$green-color-bright: #11d68b !default;
+// Light-mode accent: links, hovers, and the tinted code background.
+$purple-color: $uchicago-maroon !default;
+$light-purple-color: color.adjust($purple-color, $lightness: 25%);
+$pink-color: #f92080 !default;
+$pink-color-light: #ffdddd !default;
+$yellow-color: #efcc00 !default;
+
+// Neutral ramp. Dark Greystone carries muted/secondary text; Light Greystone is
+// dark-mode body text and the light-mode footer text.
+$grey-color: $uchicago-greystone-dark !default;
+$grey-color-light: $uchicago-greystone-light !default;
+// NOT a brand greystone on purpose: this is the dark-mode page background
+// (_themes.scss:79). Any mid-grey here would wash out dark mode entirely.
+$grey-color-dark: #1c1c1d;
+$grey-900: #212529;
+
+$white-color: #ffffff !default;
+$black-color: #000000 !default;
+
+// Theme colors
+
+$code-bg-color-light: rgba($purple-color, 0.05);
+$code-bg-color-dark: #2c3237 !default;
+
+// Font awesome location
+$fa-font-path: "../webfonts";
+
+// Back To Top button config
+$back-to-top-z-index: 10;
+$back-to-top-bottom: 30px;
+$back-to-top-right: 30px;
+$back-to-top-diameter: 40px;
+$back-to-top-height: $back-to-top-diameter;
+$back-to-top-width: $back-to-top-diameter;
+
+// Max width default
+$max-content-width: 930px !default;

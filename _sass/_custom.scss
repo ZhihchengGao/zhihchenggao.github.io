@@ -1,0 +1,345 @@
+/*******************************************************************************
+ * Site-local overrides. Not a gem file — safe to edit freely.
+ *
+ * Typography: Source Serif 4 headings over a Source Sans 3 body (they are
+ * designed as a matched family), with JetBrains Mono for code. The families
+ * themselves are requested in `_config.yml` under
+ * `third_party_libraries.google_fonts`; loading and applying are two separate
+ * steps, and changing one without the other is a silent no-op.
+ *
+ * These rules are unlayered, so they beat the gem's prebuilt `tailwind.css`
+ * (which hardcodes `font-family: Roboto, sans-serif` inside `@layer base`) —
+ * unlayered styles always win over layered ones, regardless of link order.
+ ******************************************************************************/
+
+$font-sans:
+  "Source Sans 3",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Helvetica,
+  Arial,
+  sans-serif;
+$font-serif: "Source Serif 4", Georgia, Cambria, "Times New Roman", serif;
+$font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+// The theme sets body copy to 300, which reads too thin in Source Sans 3.
+// 360 is an interpolated weight on the variable axis — a little lighter than
+// regular. Fallback (non-variable) system fonts will snap this to 400.
+$body-weight: 360;
+// Bold body text (sans) and headings (serif) are tuned separately — 700 in the
+// serif reads heavier than 700 in the sans at these sizes.
+$bold-weight: 600;
+$heading-weight: 650;
+
+body {
+  font-family: $font-sans;
+  font-weight: $body-weight;
+}
+
+// Several places (notably the CV) hardcode the light utility in markup, so the
+// body rule alone would not reach them.
+.font-weight-light {
+  font-weight: $body-weight;
+}
+
+// `<b>`/`<strong>` have no rule of their own (the theme runs Tailwind with
+// `preflight: false`), so they inherit the browser default of `bolder`, which
+// resolves to a hard 700. Pin them to an absolute weight instead — that also
+// decouples them from $body-weight, which would otherwise flip them to 400 if it
+// ever dropped below 350.
+//
+// Declared BEFORE the heading rule below on purpose: CV position titles carry
+// both `.title` and `.font-weight-bold`, and both selectors have equal
+// specificity, so the later one must be the heading rule to win.
+b,
+strong,
+.font-weight-bold {
+  font-weight: $bold-weight;
+}
+
+// The gem sets `font-family: inherit` on headings, so they need to be named
+// explicitly to pick up the serif.
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.card-title,
+.navbar-brand {
+  font-family: $font-serif;
+}
+
+code,
+kbd,
+samp,
+pre,
+pre code,
+.highlight,
+.highlight pre,
+.highlighter-rouge {
+  font-family: $font-mono;
+}
+
+// Titles are bold. The theme ships headings at font-weight 300 and tags the
+// navbar name with `.font-weight-lighter`, so both need overriding. These rules
+// are unlayered and therefore beat the `.font-weight-*` utilities, which Tailwind
+// emits inside `@layer components`.
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.post-title,
+.card-title,
+.title,
+.navbar-brand {
+  font-weight: $heading-weight;
+}
+
+// Contact line on the home page, injected via the `subtitle` front matter in
+// _pages/about.md.
+// Only the "email:" label is bold; the address itself stays regular.
+.contact-email {
+  font-family: $font-serif;
+  font-weight: 400;
+}
+
+.contact-email b {
+  font-weight: $heading-weight;
+}
+
+// Breathing room between the name/email header and the bio below it. `.desc` is
+// rendered only by the about layout, so this cannot affect posts or the CV.
+.post-header .desc {
+  margin-bottom: 2.5rem;
+}
+
+/*******************************************************************************
+ * Home page profile column: headshot, then positions, then social icons and the
+ * contact note. The social block is relocated into `.profile` by the local
+ * _layouts/about.liquid override.
+ ******************************************************************************/
+
+.profile {
+  text-align: center;
+}
+
+// The gem styles `.more-info` as inline monospace, which suits a mailing address
+// but not a list of positions.
+.profile .more-info {
+  margin-top: 0.9rem;
+  font-family: $font-sans;
+}
+
+.profile .more-info p {
+  display: block;
+  margin: 0;
+}
+
+.profile .position-primary {
+  font-weight: $bold-weight;
+  line-height: 1.3;
+}
+
+.profile .position-affiliation {
+  margin-bottom: 0.6rem !important;
+  color: var(--global-text-color-light);
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+.profile .more-info p:last-child {
+  margin-bottom: 0 !important;
+}
+
+// Icons default to 4rem, which overflows the ~30%-wide profile column.
+.profile .social {
+  margin-top: 1rem;
+}
+
+.profile .social .contact-icons {
+  font-size: 1.35rem;
+  line-height: 1.8;
+}
+
+.profile .social .contact-icons a img {
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-bottom: 0;
+}
+
+.profile .social .contact-note {
+  margin-top: 0.6rem;
+  font-family: $font-serif;
+  font-size: 0.9rem;
+}
+
+/*******************************************************************************
+ * CV page. Everything here is scoped to `.cv` so it cannot leak into the blog,
+ * projects, or the navbar (which also uses a `.title` class).
+ ******************************************************************************/
+
+// Position / degree names, maroon whether or not they are a link. Uses the theme
+// token rather than a literal so dark mode gets the lighter tint automatically.
+.cv h6.title,
+.cv h6.title a {
+  color: var(--global-theme-color);
+}
+
+// Company names, institutions, and majors sit in plain `h6` tags next to the
+// `h6.title` above. The global heading-bold rule would sweep them up, which
+// flattens the hierarchy between a role and its employer.
+.cv h6:not(.title) {
+  font-weight: 400;
+}
+
+// The gem nudges the date column with `width: 75px` and
+// `transform: translateX(-15px) translateY(-5px)`, hand-tuned against the old
+// Roboto metrics. With different heading metrics that offset no longer lands,
+// so drop it and let the badge sit centered in its own grid column.
+// The gem nudges the date column with `width: 75px` and
+// `transform: translateX(-15px) translateY(-5px)`, hand-tuned against the old
+// Roboto metrics. With different heading metrics that offset no longer lands.
+//
+// The column also carries a `text-center` class. Because the badges live in a
+// shrink-to-fit table, every row shares one column width set by the widest cell
+// ("2025 - PRESENT"), so centering leaves shorter badges like "2026 - 2026"
+// visibly indented. Left-align so their left edges line up.
+.cv .date-column {
+  width: auto;
+  transform: none;
+  text-align: left;
+}
+
+.cv .date-column .table-cv {
+  margin-left: 0;
+}
+
+// The entry lists render with default disc bullets, which read as noise next to
+// the date pills.
+.cv .list-group {
+  padding-left: 0;
+  list-style: none;
+}
+
+.cv .list-group-item {
+  padding: 0.85rem 0;
+}
+
+.cv .list-group-item:first-child {
+  padding-top: 0.25rem;
+}
+
+.cv .list-group-item:last-child {
+  padding-bottom: 0.25rem;
+}
+
+// Section headers ("Experience", "Education"). At 2rem they competed with the
+// page title; a smaller size plus a rule underneath separates a section from the
+// entry titles inside it without relying on size alone.
+.cv .card-title {
+  margin-bottom: 1.35rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--global-divider-color);
+  font-size: 1.4rem;
+  letter-spacing: 0.01em;
+}
+
+// Flat card: no drop shadow, no fill tint — just a defined outline.
+.cv .card {
+  padding: 1.5rem !important;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 0.4rem;
+  background-color: var(--global-card-bg-color);
+  box-shadow: none;
+}
+
+// `.hoverable` re-applies a shadow on hover.
+.cv .card.hoverable:hover {
+  box-shadow: none;
+}
+
+// Date pills: solid maroon made them the loudest thing on the page, competing
+// with the position titles they should be subordinate to. Muted neutral instead.
+.cv .card .list-group-item .badge {
+  padding: 0.28em 0.6em;
+  border-radius: 0.2rem;
+  background-color: var(--global-divider-color) !important;
+  color: var(--global-text-color) !important;
+  font-size: 0.68rem;
+  font-weight: $bold-weight;
+  letter-spacing: 0.03em;
+}
+
+.cv .location {
+  margin: 0.4rem 0 0;
+  color: var(--global-text-color-light);
+  font-size: 0.82rem;
+}
+
+.cv .location .iconlocation {
+  margin-right: 0.15rem;
+}
+
+// Pull the entry text back toward the date column — the gem's 1.5rem indent left
+// a wide empty channel once the dates were left-aligned.
+.cv .ml-md-4 {
+  margin-left: 0.25rem !important;
+}
+
+.cv h6.title {
+  margin-bottom: 0.15rem;
+  font-size: 1.05rem;
+}
+
+// The resume link appended to the description paragraph by _layouts/cv.liquid.
+// Needs to out-specify `.post-description a { color: inherit }`, which otherwise
+// forces the link to body-text colour.
+.post-description a.cv-resume-link {
+  color: var(--global-theme-color);
+  text-decoration: underline;
+  text-decoration-color: var(--global-theme-color);
+  text-underline-offset: 0.15em;
+}
+
+// The theme drops the underline on hover; keep it so only the emphasis shifts.
+.post-description a.cv-resume-link:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+// The gem gives every bare table a cell border:
+//   table:not(.table) td { border-top: 1px solid var(--global-divider-color) }
+// `table.table-cv` matches, so a rule was drawn above the date pill and again
+// above the location line. Clear it and the inherited cell padding.
+.cv .table-cv td,
+.cv .table-cv th {
+  padding: 0;
+  border-top: 0;
+}
+
+/*******************************************************************************
+ * Footer
+ ******************************************************************************/
+
+// Ships at 40px top and bottom, which is a lot of empty space for one line.
+footer.sticky-bottom {
+  padding-top: 1.1rem;
+  padding-bottom: 1.1rem;
+  color: var(--global-text-color-light);
+  font-size: 0.8rem;
+}
+
+// Links inherit the muted grey rather than pulling maroon focus to boilerplate.
+footer.sticky-bottom a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--global-divider-color);
+}
+
+footer.sticky-bottom a:hover {
+  color: var(--global-theme-color);
+}
