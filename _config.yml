@@ -9,11 +9,13 @@ last_name: Gao
 contact_note: >
   Reach me via email!
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+  Personal website of Jingbo (Richard) Gao, a computer science undergraduate at the University of Chicago
+  and research assistant at the Virginia Image and Video Analysis Lab, working on computer vision and
+  multimodal machine learning.
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
-keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
+keywords: Jingbo Gao, Richard Gao, University of Chicago, computer vision, multimodal machine learning, VIVA Lab # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: uchicago-favicon.png # square-padded crest; the raw uchicago.png is 2176x2626 and browsers squish it
 
@@ -121,8 +123,8 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: al-folio # blog_name will be displayed in your blog page
-blog_description: a simple whitespace theme for academics
+blog_name: blogs # blog_name will be displayed in your blog page
+# blog_description: 
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 
@@ -325,8 +327,12 @@ jekyll-archives:
   books:
     enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
 
-display_tags: ["formatting", "images", "links", "math", "code", "blockquotes"] # these tags will be displayed on the front page of your blog
-display_categories: ["external-services"] # these categories will be displayed on the front page of your blog
+# Tags/categories shown on the blog front page. The template's demo values
+# ("formatting", "images", "external-services", ...) linked to archive pages for
+# example posts that no longer exist, so every one of them 404'd. Add real tags
+# here once posts use them; leaving these empty hides the tag bar entirely.
+display_tags: []
+display_categories: []
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar

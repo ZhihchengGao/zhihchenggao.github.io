@@ -99,6 +99,78 @@ h6,
   font-weight: $heading-weight;
 }
 
+// Reading text. The theme sets body copy at 1rem/1.5, which is tight for long
+// paragraphs. Nudged up for the about page (`article > .clearfix`) and blog posts
+// (`.post-content`) only — the CV stays dense on purpose, since it is scanned
+// rather than read.
+//
+// Set on the container, not on `p`, so lists and blockquotes come along too.
+// Headings are unaffected: their sizes are absolute rem values and `h1`-`h6`
+// carry their own tighter line-height.
+.post-content,
+.post article > .clearfix {
+  font-size: 1.05rem;
+  line-height: 1.72;
+}
+
+// A touch more room between paragraphs to match the looser leading.
+.post-content p,
+.post article > .clearfix p {
+  margin-bottom: 1.15rem;
+}
+
+// Heading scale inside article content. The theme applies one global scale where
+// `h1` is 2.5rem and `h2` is 2rem — so a `##` in a post rendered at almost exactly
+// the size of the page's own title. These sizes step down from just under the page
+// title (~2.4rem) so the hierarchy reads correctly.
+//
+// Scoped to the content containers on purpose: page titles (`.post-title`,
+// `.header-bar h1`) keep their size, and the CV's `h6`-based entry markup is
+// untouched.
+.post-content,
+.post article > .clearfix {
+  h1 {
+    font-size: 1.9rem;
+  }
+
+  h2 {
+    font-size: 1.55rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  h4 {
+    font-size: 1.12rem;
+  }
+
+  h5 {
+    font-size: 1.02rem;
+  }
+
+  h6 {
+    font-size: 0.95rem;
+  }
+
+  // The theme zeroes `margin-top` on all headings. At these smaller sizes they
+  // need explicit space above, or they crowd the paragraph before them.
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 1.9rem;
+    margin-bottom: 0.6rem;
+  }
+
+  // ...except the first thing in the article, which already sits below the header.
+  > :first-child {
+    margin-top: 0;
+  }
+}
+
 // Contact line on the home page, injected via the `subtitle` front matter in
 // _pages/about.md.
 // Only the "email:" label is bold; the address itself stays regular.
@@ -319,6 +391,79 @@ h6,
 .cv .table-cv th {
   padding: 0;
   border-top: 0;
+}
+
+/*******************************************************************************
+ * Blog index. The theme sizes this page for a busy blog — a 5rem title over 5rem
+ * of vertical padding. Scaled down so the posts, not the masthead, lead the page.
+ ******************************************************************************/
+
+.header-bar {
+  padding-top: 0.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.header-bar h1 {
+  margin-bottom: 0.4rem;
+  font-size: 2.4rem;
+}
+
+// Subtitle, not a second heading: sans and regular weight so it reads as a note
+// under the title rather than competing with it.
+.header-bar h2 {
+  margin-bottom: 0;
+  color: var(--global-text-color-light);
+  font-family: $font-sans;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.post-list li {
+  padding-top: 1.15rem;
+  padding-bottom: 1.15rem;
+}
+
+.post-list li .post-title {
+  font-family: $font-serif;
+  font-size: 1.2rem;
+}
+
+.post-list li .post-meta {
+  font-size: 0.82rem;
+}
+
+// Hide the year chip on the blog index — the full date is already shown in
+// .post-meta directly above it. The individual post page keeps its year link,
+// since that lives in .post-header rather than .post-list.
+//
+// NOTE: this hides the whole row, so real tags and categories would be hidden
+// here too once posts start using them. Switch to hiding only the year chip
+// (`a:has(.fa-calendar)`) if that happens — hiding just the chip is left out for
+// now because it would leave an empty paragraph taking up vertical space.
+.post-list li .post-tags {
+  display: none;
+}
+
+// Individual post pages: centre the title, date, and year.
+//
+// Scoped with :has(.post-meta) rather than plain .post-header because the about
+// and CV pages share both .post-header and .post-title — centring those too would
+// be wrong. .post-meta appears only in the post and book-review layouts, and the
+// blog index's .post-meta sits inside .post-list, not a .post-header.
+//
+// If :has() is ever unavailable the rule is simply skipped: posts stay
+// left-aligned, nothing breaks.
+.post-header:has(.post-meta) {
+  text-align: center;
+}
+
+.post-header:has(.post-meta) .post-title {
+  margin-bottom: 0.5rem;
+}
+
+.post-header:has(.post-meta) .post-tags {
+  margin-bottom: 1.5rem;
 }
 
 /*******************************************************************************
