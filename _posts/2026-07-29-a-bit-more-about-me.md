@@ -30,7 +30,7 @@ I especially love the work of [Liu Cixin](https://en.wikipedia.org/wiki/Liu_Cixi
 
 ### Other Fun Facts
 
-I love Formula 1. I root for [Oscar Piastri](https://en.wikipedia.org/wiki/Oscar_Piastri), and I rooted for [Zhou Guanyu](https://en.wikipedia.org/wiki/Zhou_Guanyu) back when he was in the paddock. I went to the Chinese Grand Prix in 2024 and 2025.
+I love Formula 1. I root for [Oscar Piastri](https://en.wikipedia.org/wiki/Oscar_Piastri) and [Zhou Guanyu](https://en.wikipedia.org/wiki/Zhou_Guanyu). I went to the Chinese Grand Prix in 2024 and 2025.
 
 I was never a sporty guy, but I do stay active at the gym, on the badminton court, and running on the track or the road. You'd catch me in pretty bad shape right now though, after a recent pneumothorax surgery.
 
@@ -40,6 +40,6 @@ I was never a theater kid, but I find musicals pretty cool. I've probably only s
 
 ### Jingbo, Richard and Zhihcheng
 
-People are often confused by the various names I go by, so let me sort them out. Jingbo (靖博, /tɕɪŋ51 pɔ35/) is my legal first name. It's a phonetic reference to my parents' hometowns (Jinghai and Zibo), and it means "composed and knowledgeable". Zhicheng (至诚, /ʈʂɚ51 ʈʂʰɤŋ35/) is the name my parents were going to give me before I was born, and it ended up as my nickname instead. It means "the most truthful". I use Zhihcheng as my username on most social media (I threw in the extra h to imitate Wade-Giles romanization, and because it looks cool). Richard is my English nickname, given to me by my kindergarten English teacher. I thought it was a fine name, so I kept it. 
+People are often confused by the various names I go by, so let me sort them out. Jingbo (靖博, /tɕɪŋ51 pɔ35/) is my legal first name. It's a phonetic reference to my parents' hometowns ([Jinghai](https://en.wikipedia.org/wiki/Jinghai,_Tianjin) and [Zibo](https://en.wikipedia.org/wiki/Yiyuan_County)), and it means "composed and knowledgeable". Zhicheng (至诚, /ʈʂɚ51 ʈʂʰɤŋ35/) is the name my parents were going to give me before I was born, and it ended up as my nickname instead. It means "the most truthful". I use Zhihcheng as my username on most social media (I threw in the extra h to imitate [Wade-Giles romanization](https://en.wikipedia.org/wiki/Wade–Giles), and because it looks cool). Richard is my English nickname, given to me by my kindergarten English teacher. I thought it was a fine name, so I kept it. 
 
 Please call me Richard. I'd rather go by an English nickname than have people struggle to pronounce my real name, and pronouncing it incorrectly.

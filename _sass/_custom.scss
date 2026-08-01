@@ -113,8 +113,16 @@ h6,
   line-height: 1.72;
 }
 
-// A touch more room between paragraphs to match the looser leading.
-.post-content p,
+// Paragraph spacing, tuned per page type rather than shared.
+//
+// Blog posts run long and are broken up by headings, so 1.15rem left consecutive
+// paragraphs reading as unrelated blocks — nearly twice the gap under a heading.
+.post-content p {
+  margin-bottom: 0.85rem;
+}
+
+// The about page is a handful of standalone paragraphs with no headings between
+// them, so it keeps the airier setting.
 .post article > .clearfix p {
   margin-bottom: 1.15rem;
 }
@@ -155,6 +163,10 @@ h6,
 
   // The theme zeroes `margin-top` on all headings. At these smaller sizes they
   // need explicit space above, or they crowd the paragraph before them.
+  // Space above a heading stays large — that is the section break, and it
+  // collapses with the previous paragraph's margin rather than adding to it.
+  // Space below stays the tightest gap on the page so a heading reads as
+  // belonging to the text beneath it.
   h1,
   h2,
   h3,
