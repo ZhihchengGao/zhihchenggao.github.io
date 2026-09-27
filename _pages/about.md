@@ -45,7 +45,7 @@ I'm an undergraduate studying Computer Science at <a href="https://www.uchicago.
 
 I'm in the early stages of exploring my directions in machine learning, particularly machine perception: To what extent can a machine process and learn from different modalities the way humans do, and how can this better inform a machine’s decisions? These questions have drawn me toward computer vision and multimodal machine learning as my current research interests.
 
-I'd love to connect with mentors or peers thinking about similar questions, and I'm actively looking for research opportunities in CV and multimodal ML, in Chicago and beyond.
+I'd love to connect with mentors or peers working in these areas, and I'm actively looking for research opportunities in CV and multimodal ML, in Chicago and beyond.
 
 {% assign more_about_me = site.posts | where: "slug", "a-bit-more-about-me" | first %}
 Here's [a bit more about me]({{ more_about_me.url | relative_url }}).
