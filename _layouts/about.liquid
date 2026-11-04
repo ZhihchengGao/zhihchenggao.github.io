@@ -2,51 +2,230 @@
 layout: default
 ---
 <div class="post">
-  <header class="post-header">
-    <h1 class="post-title">
-      {% if site.title == 'blank' %}
-        <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-        {{ site.last_name }}
-      {% else %}
-        {{ site.title }}
+  <!--
+    The intro (name, bio, profile column) is its own block so it can be sized to
+    the first screen, with the Projects heading peeking in at the bottom.
+  -->
+  <div class="home-intro">
+    <header class="post-header">
+      <h1 class="post-title">
+        {% if site.title == 'blank' %}
+          <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
+          {{ site.last_name }}
+        {% else %}
+          {{ site.title }}
+        {% endif %}
+      </h1>
+      <p class="desc">{{ page.subtitle }}</p>
+    </header>
+
+    <article>
+      {% if page.profile %}
+        <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
+          {% if page.profile.image %}
+            {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+            {% if page.profile.image_circular %}
+              {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
+            {% else %}
+              {% assign profile_image_class = 'img-fluid z-depth-1
+      rounded' %}
+            {% endif %}
+            {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
+      30vw, 95vw"{% endcapture %}
+            {%
+              include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
+              cache_bust=true
+            %}
+          {% endif %}
+          {% if page.profile.more_info %}
+            <div class="more-info">{{ page.profile.more_info }}</div>
+          {% endif %}
+
+          <!--
+            Social: moved up from the bottom of the article so the icons and
+            contact note sit directly beneath the headshot.
+          -->
+          {% if page.social %}
+            <div class="social">
+              <div class="contact-icons">{% social_links %}</div>
+            </div>
+          {% endif %}
+        </div>
       {% endif %}
-    </h1>
-    <p class="desc">{{ page.subtitle }}</p>
-  </header>
+
+      <div class="clearfix">{{ content }}</div>
+    </article>
+  </div>
 
   <article>
-    {% if page.profile %}
-      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
-        {% if page.profile.image %}
-          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {% if page.profile.image_circular %}
-            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
-          {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1
-      rounded' %}
-          {% endif %}
-          {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
-      30vw, 95vw"{% endcapture %}
-          {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
-            cache_bust=true
-          %}
-        {% endif %}
-        {% if page.profile.more_info %}
-          <div class="more-info">{{ page.profile.more_info }}</div>
-        {% endif %}
+    <!--
+      Projects: cards come from _data/projects.yml. Sits below .home-intro, so it
+      starts after the floated profile column and spans the full width.
+    -->
+    {% if site.data.projects and site.data.projects.size > 0 %}
+      <section class="home-projects">
+        <h2 class="home-projects-title">Projects</h2>
+        <div class="project-grid">
+          {% for project in site.data.projects %}
+            {% if project.url contains '://' %}
+              {% assign project_url = project.url %}
+            {% elsif project.url %}
+              {% assign project_url = project.url | relative_url %}
+            {% else %}
+              {% assign project_url = null %}
+            {% endif %}
+            {% capture card_inner %}
+              <div class="project-card-media">
+                {% if project.compare %}
+                  {% assign before = project.compare.before %}
+                  {% assign after = project.compare.after %}
+                  <!-- Before/after slider: "after" fills the frame and "before" is
+                       stacked on top, clipped to the left of --pos (a percentage). -->
+                  <div
+                    class="project-compare"
+                    role="slider"
+                    tabindex="0"
+                    aria-label="Drag to compare {{ before.label }} and {{ after.label }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="50"
+                    style="--pos: 50"
+                  >
+                    <img
+                      class="project-compare-after"
+                      src="{{ after.poster | prepend: 'assets/img/' | relative_url }}"
+                      data-gif="{{ after.gif | prepend: 'assets/img/' | relative_url }}"
+                      alt="{{ after.label }}"
+                      draggable="false"
+                    >
+                    <img
+                      class="project-compare-before"
+                      src="{{ before.poster | prepend: 'assets/img/' | relative_url }}"
+                      data-gif="{{ before.gif | prepend: 'assets/img/' | relative_url }}"
+                      alt="{{ before.label }}"
+                      draggable="false"
+                    >
+                    <div class="project-compare-divider" aria-hidden="true">
+                      <span class="project-compare-handle"></span>
+                    </div>
+                    <span class="project-compare-tag project-compare-tag-before" aria-hidden="true">{{ before.label }}</span>
+                    <span class="project-compare-tag project-compare-tag-after" aria-hidden="true">{{ after.label }}</span>
+                  </div>
+                {% elsif project.image %}
+                  <img src="{{ project.image | prepend: 'assets/img/' | relative_url }}" alt="" loading="lazy" decoding="async">
+                {% endif %}
+              </div>
+              <div class="project-card-body">
+                <div class="project-card-heading">
+                  <div class="project-card-name">
+                    {% comment %}
+                      Linked cards get an arrow after the title text. The word joiner (U+2060) ties it to
+                      the last word, so a wrapping title never leaves the arrow alone on a line.
+                    {% endcomment %}
+                    <h3 class="project-card-title">
+                      {{- project.title -}}
+                      {%- if project_url -%}
+                        &#8288;<svg class="project-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+                      {%- endif -%}
+                    </h3>
+                    {% if project.role %}
+                      <span class="project-card-role">{{ project.role }}</span>
+                    {% endif %}
+                  </div>
+                  {% if project.year %}
+                    <span class="project-card-year">{{ project.year }}</span>
+                  {% endif %}
+                </div>
+                {% if project.description %}
+                  <p class="project-card-desc">{{ project.description }}</p>
+                {% endif %}
+              </div>
+            {% endcapture %}
 
-        <!-- Social: moved up from the bottom of the article so the icons and
-             contact note sit directly beneath the headshot. -->
-        {% if page.social %}
-          <div class="social">
-            <div class="contact-icons">{% social_links %}</div>
-          </div>
-        {% endif %}
-      </div>
+            {% comment %} Cards without a url are not links, so a slider inside one can be dragged freely. {% endcomment %}
+            {% if project_url %}
+              <a
+                class="project-card"
+                href="{{ project_url }}"
+                {% if project.url contains '://' %}
+                  target="_blank" rel="noopener noreferrer"
+                {% endif %}
+              >
+                {{- card_inner -}}
+              </a>
+            {% else %}
+              <div class="project-card">{{- card_inner -}}</div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </section>
+
+      <script>
+        // Before/after sliders on project cards: drag anywhere on the frame, or focus it
+        // and use the arrow keys. The position is a percentage stored in --pos.
+        document.querySelectorAll('.project-compare').forEach(function (frame) {
+          function setPos(pct) {
+            pct = Math.max(0, Math.min(100, pct));
+            frame.style.setProperty('--pos', pct);
+            frame.setAttribute('aria-valuenow', Math.round(pct));
+          }
+
+          function fromPointer(e) {
+            var rect = frame.getBoundingClientRect();
+            setPos(((e.clientX - rect.left) / rect.width) * 100);
+          }
+
+          frame.addEventListener('pointerdown', function (e) {
+            frame.setPointerCapture(e.pointerId);
+            fromPointer(e);
+          });
+          frame.addEventListener('pointermove', function (e) {
+            if (frame.hasPointerCapture(e.pointerId)) fromPointer(e);
+          });
+          frame.addEventListener('keydown', function (e) {
+            var step = { ArrowLeft: -5, ArrowRight: 5, Home: -100, End: 100 }[e.key];
+            if (step === undefined) return;
+            e.preventDefault();
+            setPos(parseFloat(frame.getAttribute('aria-valuenow')) + step);
+          });
+
+          // The posters (still first frames) show until both GIFs are fully downloaded and
+          // decoded. Then both are swapped in during the same frame, so the two animations
+          // start together and stay aligned. They have identical frame counts and delays.
+          var imgs = frame.querySelectorAll('img[data-gif]');
+          function loadGifs() {
+            var ready = Array.prototype.map.call(imgs, function (img) {
+              var pre = new Image();
+              pre.src = img.dataset.gif;
+              return pre.decode().catch(function () {});
+            });
+            Promise.all(ready).then(function () {
+              requestAnimationFrame(function () {
+                imgs.forEach(function (img) {
+                  img.src = img.dataset.gif;
+                });
+              });
+            });
+          }
+
+          // The GIFs run to several MB, so wait until the slider is near the viewport.
+          if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(
+              function (entries) {
+                if (entries[0].isIntersecting) {
+                  observer.disconnect();
+                  loadGifs();
+                }
+              },
+              { rootMargin: '300px' }
+            );
+            observer.observe(frame);
+          } else {
+            loadGifs();
+          }
+        });
+      </script>
     {% endif %}
-
-    <div class="clearfix">{{ content }}</div>
 
     <!-- News -->
     {% if page.announcements and page.announcements.enabled %}
@@ -71,7 +250,6 @@ layout: default
       </h2>
       {% include selected_papers.liquid %}
     {% endif %}
-
 
     {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
       {% if site.plugins contains 'al_newsletter' %}

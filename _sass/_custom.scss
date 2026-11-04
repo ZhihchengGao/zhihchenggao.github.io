@@ -31,6 +31,10 @@ $body-weight: 360;
 // serif reads heavier than 700 in the sans at these sizes.
 $bold-weight: 600;
 $heading-weight: 650;
+// Non-bold serif text (navigation, footer, metadata, the home page's contact
+// line and positions). The serif looks spindly at the body's 360, so it is
+// nudged up a little, staying well clear of the bold weights above.
+$serif-text-weight: 440;
 
 body {
   font-family: $font-sans;
@@ -69,6 +73,29 @@ h6,
 .card-title,
 .navbar-brand {
   font-family: $font-serif;
+}
+
+// Everything that frames the content (navigation, footer, dates and other
+// metadata, page descriptions) is set in the same serif as the page title.
+// The sans is kept for the content itself: the bio, descriptions, and posts.
+// Project-card roles/years and the home-page positions are set in their own
+// rules further down.
+.navbar .nav-link,
+.navbar .dropdown-item,
+footer,
+.post-meta,
+.post-tags,
+.post-description {
+  font-family: $font-serif;
+  font-weight: $serif-text-weight;
+}
+
+// The current page's tab. The gem sets `font-weight: bolder` (700 here), which
+// was right for the sans but renders ~13% darker in the serif; 600 matches how
+// the old sans tab looked to within ~2%. Same selector as the gem's rule, so this
+// later one wins.
+.navbar.navbar-light .navbar-nav .nav-item.active > .nav-link {
+  font-weight: $bold-weight;
 }
 
 code,
@@ -185,10 +212,10 @@ h6,
 
 // Contact line on the home page, injected via the `subtitle` front matter in
 // _pages/about.md.
-// Only the "email:" label is bold; the address itself stays regular.
+// The "email:" label is bold; the address is the lighter serif weight.
 .contact-email {
   font-family: $font-serif;
-  font-weight: 400;
+  font-weight: $serif-text-weight;
 }
 
 .contact-email b {
@@ -212,10 +239,11 @@ h6,
 }
 
 // The gem styles `.more-info` as inline monospace, which suits a mailing address
-// but not a list of positions.
+// but not a list of positions. Serif, like the rest of the site's metadata.
 .profile .more-info {
   margin-top: 0.9rem;
-  font-family: $font-sans;
+  font-family: $font-serif;
+  font-weight: $serif-text-weight;
 }
 
 .profile .more-info p {
@@ -228,11 +256,16 @@ h6,
   line-height: 1.3;
 }
 
+// 0.92rem keeps "Virginia Image and Video Analysis Lab" on one line in the
+// desktop profile column (~270px); in the serif it is 274px at 0.95rem. Where
+// the column is narrower, `balance` splits it into two even lines rather than
+// leaving "Lab" on its own.
 .profile .position-affiliation {
   margin-bottom: 0.6rem !important;
   color: var(--global-text-color-light);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   line-height: 1.3;
+  text-wrap: balance;
 }
 
 .profile .more-info p:last-child {
@@ -259,6 +292,286 @@ h6,
   margin-top: 0.6rem;
   font-family: $font-serif;
   font-size: 0.9rem;
+}
+
+/*******************************************************************************
+ * Home page first screen. `.home-intro` wraps the name, bio, and profile column
+ * (see _layouts/about.liquid). It is at least one screen tall, less room for the
+ * Projects heading to peek in below it, and centres its content in that space,
+ * so on tall screens the introduction fills the first screen instead of sitting
+ * at the top with the projects crowding up underneath.
+ ******************************************************************************/
+
+// 15.5rem is what else shares the first screen: the fixed navbar plus the page's
+// top padding (~6.5rem together), the projects section's 2.5rem top margin, and
+// ~6.5rem for the Projects heading and the top edge of the cards.
+// Phones skip this: there the intro is already taller than the screen.
+@media (min-width: 576px) {
+  .home-intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 15.5rem);
+    min-height: calc(100svh - 15.5rem);
+    padding-top: 1.5rem;
+  }
+}
+
+/*******************************************************************************
+ * Home page projects. Cards are rendered by _layouts/about.liquid from
+ * _data/projects.yml: a 16:9 preview inset in a flat outlined card, then the
+ * title (with an arrow on linked cards), role, year, and a short description.
+ ******************************************************************************/
+
+$project-card-radius: 0.95rem;
+$project-card-padding: 0.5rem;
+
+.home-projects {
+  margin-top: 2.5rem;
+}
+
+// Same serif and weight as the page title (via the global heading rules above),
+// one step down in size so it reads as a section of the page, not a second title.
+.home-projects-title {
+  margin-bottom: 1.1rem;
+  font-size: 1.75rem;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 576px) {
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+// The whole card is the link. Reset the theme's link colour and hover underline,
+// which would otherwise turn every line of the card maroon and underlined.
+.project-card {
+  display: flex;
+  flex-direction: column;
+  padding: $project-card-padding;
+  border: 1px solid var(--global-divider-color);
+  border-radius: $project-card-radius;
+  background-color: var(--global-card-bg-color);
+  color: inherit;
+  transition: border-color 0.2s ease-out;
+}
+
+.project-card:hover,
+.project-card:focus-visible {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.project-card[href]:hover {
+  border-color: color-mix(in srgb, var(--global-theme-color) 45%, var(--global-divider-color));
+}
+
+.project-card:focus-visible {
+  outline: 2px solid var(--global-theme-color);
+  outline-offset: 2px;
+}
+
+// Inner radius = outer radius minus the padding, so the two curves stay concentric.
+// The tint shows through only when a project has no image yet.
+.project-card-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: $project-card-radius - $project-card-padding;
+  background-color: var(--global-divider-color);
+  background-color: color-mix(in srgb, var(--global-text-color) 6%, transparent);
+}
+
+.project-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease-out;
+}
+
+a.project-card[href]:hover .project-card-media img {
+  transform: scale(1.03);
+}
+
+// Before/after slider (the `compare` field in _data/projects.yml). The "before"
+// image sits on top and is clipped to the left of --pos; the script in
+// _layouts/about.liquid sets --pos from 0 to 100 as the visitor drags.
+.project-compare {
+  position: absolute;
+  inset: 0;
+  cursor: ew-resize;
+  // Horizontal drags move the slider; vertical swipes still scroll the page.
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.project-compare img {
+  position: absolute;
+  inset: 0;
+}
+
+.project-compare-before {
+  clip-path: inset(0 calc((100 - var(--pos)) * 1%) 0 0);
+}
+
+.project-compare-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--pos) * 1%);
+  width: 2px;
+  transform: translateX(-1px);
+  background: #fff;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.project-compare-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.45);
+  color: var(--global-theme-color);
+}
+
+// "‹ ›" with an em space between.
+.project-compare-handle::before {
+  content: "\2039\2003\203A";
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.project-compare:focus-visible {
+  outline: 2px solid var(--global-theme-color);
+  outline-offset: -2px;
+}
+
+.project-compare-tag {
+  position: absolute;
+  bottom: 0.5rem;
+  padding: 0.12em 0.5em;
+  border-radius: 0.25rem;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: $bold-weight;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.project-compare-tag-before {
+  left: 0.5rem;
+}
+
+.project-compare-tag-after {
+  right: 0.5rem;
+  background: var(--global-theme-color);
+  background: color-mix(in srgb, var(--global-theme-color) 88%, transparent);
+}
+
+.project-card-body {
+  // No side padding: the text lines up with the left and right edges of the
+  // preview frame above it.
+  padding: 0.7rem 0 0.3rem;
+}
+
+// The title with the role on its own line beneath it, then the year. The year
+// aligns with the title's first line, and stays there if a long title wraps.
+.project-card-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+// Arrow after the title text on linked cards. It nudges up and to the right and
+// turns maroon on hover.
+.project-card-arrow {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: 0.3em;
+  vertical-align: -0.04em;
+  color: var(--global-text-color-light);
+  transition:
+    transform 0.25s ease-out,
+    color 0.2s ease-out;
+}
+
+a.project-card[href]:hover .project-card-arrow {
+  transform: translate(0.12em, -0.12em);
+  color: var(--global-theme-color);
+}
+
+.project-card-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 1.3;
+}
+
+.project-card-title {
+  margin: 0;
+  font-size: 1.12rem;
+  line-height: inherit;
+  transition: color 0.2s ease-out;
+}
+
+a.project-card[href]:hover .project-card-title {
+  color: var(--global-theme-color);
+}
+
+.project-card-role,
+.project-card-year {
+  color: var(--global-text-color-light);
+  font-family: $font-serif;
+  font-size: 0.88rem;
+  font-weight: $serif-text-weight;
+}
+
+// Always on its own line under the title, on every card, so the cards line up.
+.project-card-role {
+  display: block;
+  margin-top: 0.1rem;
+}
+
+.project-card-year {
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.project-card-desc {
+  margin: 0.35rem 0 0;
+  color: var(--global-text-color-light);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card,
+  .project-card *,
+  .project-card *::before {
+    transition: none !important;
+  }
+
+  a.project-card[href]:hover .project-card-media img {
+    transform: none;
+  }
 }
 
 /*******************************************************************************

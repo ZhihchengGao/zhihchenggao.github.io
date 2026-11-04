@@ -1,0 +1,29 @@
+---
+# The navbar can only link to pages, so this page keeps the "Resume" tab and
+# immediately sends visitors to the PDF. Replace the file at `resume_pdf` to
+# update it. The old rendered CV page is archived in _archive/cv/.
+layout: null
+permalink: /cv/
+title: Resume
+nav: true
+nav_order: 5
+sitemap: false
+resume_pdf: /assets/pdf/resume.pdf
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Resume | {{ site.first_name }} {{ site.last_name }}</title>
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="{{ page.resume_pdf | absolute_url }}" />
+    <meta http-equiv="refresh" content="0; url={{ page.resume_pdf | relative_url }}" />
+    <script>
+      location.replace("{{ page.resume_pdf | relative_url }}");
+    </script>
+  </head>
+  <body>
+    <p><a href="{{ page.resume_pdf | relative_url }}">Open resume (PDF)</a></p>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+# Project cards shown under "Projects" on the home page, in display order.
+# Rendered by _layouts/about.liquid; styled in _sass/_custom.scss.
+#
+#   title:       card heading (required)
+#   url:         where the card links; links with "://" open in a new tab.
+#                Leave it out and the card is not a link.
+#   image:       16:9 preview, relative to assets/img/ (e.g. projects/foo.png).
+#                Without one, the card shows an empty tinted panel.
+#   compare:     instead of `image`, a before/after slider over two 16:9 GIFs of
+#                the same length. Each side has a `label`, a `gif`, and a `poster`
+#                (a still of the GIF's first frame, shown while the GIFs load).
+#   role:        e.g. "Solo Project", "Team of 4"
+#   year:        e.g. 2025
+#   description: one or two sentences
+
+- title: Pipeline for Secure Video Anonymization
+  role: VIVA Lab (Ongoing)
+  year: 2026
+  description: (Ongoing work) video face-anonymization pipeline that de-identifies faces while preserving downstream utility.
+  # 2.0–5.0 s of "6 original.mp4" and "4 with_cache.mp4" from the caching
+  # results, played at 25% speed.
+  compare:
+    before:
+      label: Original
+      gif: projects/video-anonymization/original.gif
+      poster: projects/video-anonymization/original.jpg
+    after:
+      label: Anonymized
+      gif: projects/video-anonymization/anonymized.gif
+      poster: projects/video-anonymization/anonymized.jpg
+
+- title: Keystone Citation Generator
+  url: https://github.com/ZhihchengGao/keystone-citation-generator
+  image: projects/keystone-citation-generator.jpg
+  role: Solo Project
+  year: 2024
+  description: JavaFX desktop application to generate and manage citation entries according to a school specific standard.
