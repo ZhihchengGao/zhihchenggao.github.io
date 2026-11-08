@@ -2,6 +2,11 @@
 # The navbar can only link to pages, so this page keeps the "Resume" tab and
 # immediately sends visitors to the PDF. Replace the file at `resume_pdf` to
 # update it. The old rendered CV page is archived in _archive/cv/.
+#
+# This stub has no layout, so the site-wide al_analytics tag is not included.
+# When a GA4 ID is configured (and cookie consent is off), it loads the same
+# standard GA4 snippet and redirects once the page_view is sent (at most ~1s;
+# immediately if the Google tag is blocked).
 layout: null
 permalink: /cv/
 title: Resume
@@ -11,6 +16,7 @@ sitemap: false
 resume_pdf: /assets/pdf/resume.pdf
 ---
 
+{%- assign ga_id = site.google_analytics | default: site.analytics.google -%}
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,10 +24,35 @@ resume_pdf: /assets/pdf/resume.pdf
     <title>Resume | {{ site.first_name }} {{ site.last_name }}</title>
     <meta name="robots" content="noindex" />
     <link rel="canonical" href="{{ page.resume_pdf | absolute_url }}" />
-    <meta http-equiv="refresh" content="0; url={{ page.resume_pdf | relative_url }}" />
+    <noscript><meta http-equiv="refresh" content="0; url={{ page.resume_pdf | relative_url }}" /></noscript>
     <script>
-      location.replace("{{ page.resume_pdf | relative_url }}");
+      var redirected = false;
+      function go() {
+        if (!redirected) {
+          redirected = true;
+          location.replace("{{ page.resume_pdf | relative_url }}");
+        }
+      }
     </script>
+    {% if ga_id and site.enable_google_analytics != false and site.enable_cookie_consent != true %}
+    <!-- Google Analytics -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "{{ ga_id }}");
+      // Runs once the tag has processed the config above (its page_view is already sent).
+      gtag("get", "{{ ga_id }}", "session_id", go);
+      setTimeout(go, 1000);
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}" onerror="go()"></script>
+    {% else %}
+    <script>
+      go();
+    </script>
+    {% endif %}
   </head>
   <body>
     <p><a href="{{ page.resume_pdf | relative_url }}">Open resume (PDF)</a></p>
