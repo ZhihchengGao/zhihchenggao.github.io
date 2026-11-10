@@ -2,6 +2,10 @@
 layout: default
 permalink: /blog/
 title: blog
+# BLOG-HIDDEN: `published: false` removes /blog/ and its menu tab. Delete this line
+# to bring the blog back, and undo the other BLOG-HIDDEN spots (`grep -rn BLOG-HIDDEN .`).
+# Posts themselves stay published (e.g. "A bit more about me", linked from the About page).
+published: false
 nav: true
 nav_order: 1
 pagination:

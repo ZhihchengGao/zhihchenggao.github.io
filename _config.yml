@@ -12,9 +12,11 @@ description: > # the ">" symbol means to ignore newlines until "footer_text:"
   Personal website of Jingbo (Richard) Gao, a computer science undergraduate at the University of Chicago
   and research assistant at the Virginia Image and Video Analysis Lab, working on computer vision and
   multimodal machine learning.
-footer_text: >
-  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
-  Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+# The footer shows only the (deliberately faint) copyright line. The template's
+# credit line is hidden; to bring it back, set footer_text to:
+#   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
+#   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+footer_text:
 keywords: Jingbo Gao, Richard Gao, University of Chicago, computer vision, multimodal machine learning, VIVA Lab # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: uchicago-favicon.png # square-padded crest; the raw uchicago.png is 2176x2626 and browsers squish it
@@ -23,7 +25,7 @@ url: https://jingbogao.com # the base hostname & protocol for your site
 baseurl: # the subpath of your site, e.g. /blog/. Leave blank for root
 last_updated: false # set to true if you want to display last updated in the footer
 impressum_path: # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
-back_to_top: true # set to false to disable the back to top button
+back_to_top: false # set to false to disable the back to top button
 
 # -----------------------------------------------------------------------------
 # Theme
@@ -86,7 +88,7 @@ al_folio:
 
 navbar_fixed: true
 footer_fixed: false
-search_enabled: true
+search_enabled: false
 socials_in_search: true
 posts_in_search: true
 bib_search: true
@@ -319,7 +321,10 @@ terser:
 
 jekyll-archives:
   posts:
-    enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
+    # BLOG-HIDDEN: blog archives (/blog/2026/ etc.) are off while the blog is hidden.
+    # To re-enable the blog, restore: enabled: [year, tags, categories]
+    # and undo the other BLOG-HIDDEN spots (`grep -rn BLOG-HIDDEN .`).
+    enabled: []
     permalinks:
       year: "/blog/:year/"
       tags: "/blog/:type/:name/"
@@ -461,7 +466,7 @@ enable_cookie_consent: false # enables GDPR-compliant cookie consent dialog (htt
 enable_masonry: true # enables automatic project cards arrangement
 enable_math: true # enables math typesetting (uses MathJax)
 enable_tooltips: false # enables automatic tooltip links generated for each section titles on pages and posts
-enable_darkmode: true # enables switching between light/dark modes
+enable_darkmode: false # enables switching between light/dark modes
 enable_navbar_social: false # enables displaying social links in the navbar on the about page
 enable_project_categories: true # enables categorization of projects into multiple categories
 enable_medium_zoom: true # enables image zoom feature (as on medium.com)

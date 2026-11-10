@@ -1,6 +1,6 @@
-# zhihchenggao.github.io
+# jingbogao.com
 
-Richard's personal academic website. Live at **[zhihchenggao.github.io](https://zhihchenggao.github.io)**.
+Richard's personal academic website. Live at **[jingbogao.com](https://jingbogao.com)**.
 
 ## Built with
 

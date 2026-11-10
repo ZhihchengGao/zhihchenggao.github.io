@@ -791,16 +791,31 @@ a.project-card[href]:hover .project-card-title {
   margin-bottom: 1.5rem;
 }
 
+// BLOG-HIDDEN: while the blog and its archives are off, a post's year/tag row
+// would only link to pages that no longer exist, so hide the row and move its
+// spacing onto the date line. Delete both rules when the blog is re-enabled.
+// Matching on the /blog/ link leaves book reviews (which also use .post-tags) alone.
+.post-tags:has(a[href*="/blog/"]) {
+  display: none;
+}
+
+.post-header:has(.post-tags a[href*="/blog/"]) .post-meta {
+  margin-bottom: 1.5rem;
+}
+
 /*******************************************************************************
  * Footer
  ******************************************************************************/
 
 // Ships at 40px top and bottom, which is a lot of empty space for one line.
+// The copyright line is meant to be barely noticeable: small and faded.
+// Raise the opacity (1 = normal) if it ever needs to be more readable.
 footer.sticky-bottom {
   padding-top: 1.1rem;
   padding-bottom: 1.1rem;
   color: var(--global-text-color-light);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
+  opacity: 0.45;
 }
 
 // Links inherit the muted grey rather than pulling maroon focus to boilerplate.
