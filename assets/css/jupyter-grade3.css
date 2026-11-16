@@ -115,16 +115,6 @@ ul#tabs a {
   background-color: #ffffff;
 }
 
-#header .header-bar {
-  background: #ffffff;
-  background-color: #ffffff;
-}
-
-body > #header .header-bar {
-  width: 100%;
-  background: #ffffff;
-}
-
 .navbar {
   border: none;
 }
